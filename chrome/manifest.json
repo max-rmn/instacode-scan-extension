@@ -7,6 +7,9 @@
     "storage",
     "scripting"
   ],
+  "background": {
+    "service_worker": "background.js"
+  },
   "host_permissions": [
     "*://*.instagram.com/*",
     "https://instacode-panel.onrender.com/*"

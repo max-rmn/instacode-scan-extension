@@ -69,7 +69,7 @@ const browser = globalThis.browser ?? globalThis.chrome;
     }
   });
 
-  // ── POST final au panneau (depuis le content script : pas de CORS grâce aux host_permissions) ──
+  // ── Envoi final au panneau via le background (hors CORS, cross-navigateur) ──
   async function upload(followers, following) {
     const cfg = state.config;
     if (!cfg) {
@@ -79,26 +79,17 @@ const browser = globalThis.browser ?? globalThis.chrome;
     send({ type: 'uploading' });
     const base = (cfg.panelUrl || '').replace(/\/+$/, '');
     try {
-      const res = await fetch(base + '/api/scan/upload', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'X-Scan-Token': cfg.token,
-        },
-        body: JSON.stringify({ followers, following }),
-        credentials: 'omit', // jamais de cookies vers le panneau
+      const res = await browser.runtime.sendMessage({
+        type: 'upload',
+        panelUrl: base,
+        token: cfg.token,
+        followers,
+        following,
       });
-      let data = null;
-      const text = await res.text();
-      try {
-        data = JSON.parse(text);
-      } catch (e) {
-        /* réponse non JSON */
-      }
-      if (res.ok) {
-        send({ type: 'uploaded', data: data || {} });
+      if (res && res.ok) {
+        send({ type: 'uploaded', data: res.data || {} });
       } else {
-        const msg = (data && data.error) || ('Erreur HTTP ' + res.status + (text ? ' : ' + text.slice(0, 300) : ''));
+        const msg = (res && res.data && res.data.error) || (res && res.error) || ('Erreur HTTP ' + (res && res.status) + (res && res.text ? ' : ' + res.text : ''));
         send({ type: 'error', message: msg });
       }
     } catch (e) {

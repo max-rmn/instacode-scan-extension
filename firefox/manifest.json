@@ -14,6 +14,9 @@
     "scripting",
     "activeTab"
   ],
+  "background": {
+    "scripts": ["background.js"]
+  },
   "host_permissions": [
     "*://*.instagram.com/*",
     "https://instacode-panel.onrender.com/*"
