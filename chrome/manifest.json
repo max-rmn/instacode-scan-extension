@@ -15,6 +15,14 @@
     "default_popup": "popup.html",
     "default_title": "Instacode Scan"
   },
+  "commands": {
+    "_execute_action": {
+      "suggested_key": {
+        "default": "Alt+Shift+I"
+      },
+      "description": "Ouvrir Instacode Scan"
+    }
+  },
   "web_accessible_resources": [
     {
       "resources": ["injected.js"],
