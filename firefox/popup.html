@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Instacode Scan</title>
+  <style>
+    body { width: 340px; font-family: system-ui, -apple-system, sans-serif; margin: 0; padding: 14px; background: #fafafa; color: #111; }
+    h1 { font-size: 15px; margin: 0 0 12px; display: flex; align-items: center; gap: 8px; }
+    h1 img { width: 20px; height: 20px; }
+    label { display: block; font-size: 12px; font-weight: 600; margin: 10px 0 4px; color: #333; }
+    input { width: 100%; box-sizing: border-box; padding: 7px 8px; font-size: 12px; border: 1px solid #ccc; border-radius: 6px; background: #fff; }
+    input[type=password] { font-family: monospace; }
+    input:disabled { background: #eee; color: #999; }
+    button { cursor: pointer; border: none; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-weight: 600; }
+    #scan { width: 100%; margin-top: 14px; background: #0095f6; color: #fff; }
+    #scan:hover:not(:disabled) { background: #0084d8; }
+    #scan:disabled { background: #a5c9e6; cursor: default; }
+    #stop { width: 100%; margin-top: 8px; background: #e2e2e2; color: #111; display: none; }
+    #stop:hover { background: #d5d5d5; }
+    .status { margin-top: 12px; font-size: 12px; }
+    #counts { font-weight: 700; min-height: 16px; }
+    #progress { min-height: 16px; white-space: pre-wrap; word-break: break-word; }
+    .err { color: #c00; }
+    .ok { color: #0a7d3c; }
+    .note { font-size: 11px; color: #777; margin-top: 8px; line-height: 1.35; }
+  </style>
+</head>
+<body>
+  <h1><img src="icons/icon48.png" alt="">Instacode Scan</h1>
+
+  <label for="panelUrl">URL du panneau</label>
+  <input id="panelUrl" type="text" spellcheck="false" placeholder="https://instacode-panel.onrender.com">
+
+  <label for="token">Jeton de scan (X-Scan-Token)</label>
+  <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="Colle ton jeton…">
+  <div class="note">Jeton récupéré dans le dashboard du panneau (endpoint GET <code>/api/scan/token</code>). Il est stocké uniquement en local (stockage local de l'extension).</div>
+
+  <button id="scan">Scanner mes abonnés</button>
+  <button id="stop">Arrêter</button>
+
+  <div class="status">
+    <div id="counts"></div>
+    <div id="progress"></div>
+  </div>
+
+  <script src="popup.js"></script>
+</body>
+</html>
