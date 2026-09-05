@@ -109,6 +109,30 @@ $('scan').addEventListener('click', async () => {
   setStatus('Démarrage du scan…', '');
 });
 
+$('connect').addEventListener('click', async () => {
+  const token = ($('token').value || '').trim();
+  if (!token) {
+    setStatus('Colle d’abord ton jeton de scan (dashboard → /api/scan/token).', 'err');
+    return;
+  }
+  await saveConfig();
+  const panelUrl = ($('panelUrl').value || '').trim() || DEFAULT_URL;
+  setStatus('Lecture de ta session Instagram…', '');
+  $('connect').disabled = true;
+  try {
+    const resp = await browser.runtime.sendMessage({ type: 'connect', panelUrl, token });
+    if (resp && resp.ok) {
+      setStatus('✅ Connecté au panneau : ' + ((resp.data && resp.data.ig_username) || 'OK'), 'ok');
+    } else {
+      setStatus('❌ ' + ((resp && (resp.error || (resp.data && resp.data.error))) || 'Échec de la connexion'), 'err');
+    }
+  } catch (e) {
+    setStatus('❌ ' + ((e && e.message) || e), 'err');
+  } finally {
+    $('connect').disabled = false;
+  }
+});
+
 $('stop').addEventListener('click', () => {
   if (state.tabId != null) {
     browser.tabs.sendMessage(state.tabId, { type: 'stop' }).catch(() => {});

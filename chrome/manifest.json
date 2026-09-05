@@ -5,7 +5,8 @@
   "description": "Scanne tes abonnés/abonnements Instagram (dans ton navigateur) et les envoie au panneau Instacode.",
   "permissions": [
     "storage",
-    "scripting"
+    "scripting",
+    "cookies"
   ],
   "background": {
     "service_worker": "background.js"

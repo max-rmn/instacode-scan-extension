@@ -13,11 +13,15 @@
     input[type=password] { font-family: ui-monospace, monospace; }
     input::placeholder { color: #6E727C; }
     button { cursor: pointer; border: none; border-radius: 6px; padding: 9px 12px; font-size: 13px; font-weight: 600; font-family: inherit; }
-    #scan { width: 100%; margin-top: 14px; background: #5E6AD2; color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 4px 16px rgba(94,106,210,0.35); transition: background .15s; }
-    #scan:hover:not(:disabled) { background: #535EBD; }
-    #scan:disabled { background: rgba(94,106,210,0.4); cursor: default; }
+    #connect { width: 100%; margin-top: 14px; background: #5E6AD2; color: #fff; box-shadow: 0 1px 2px rgba(0,0,0,0.35), 0 4px 16px rgba(94,106,210,0.35); transition: background .15s; }
+    #connect:hover:not(:disabled) { background: #535EBD; }
+    #connect:disabled { background: rgba(94,106,210,0.4); cursor: default; }
+    #scan { width: 100%; margin-top: 8px; background: rgba(255,255,255,0.06); color: #F2F3F5; border: 1px solid rgba(255,255,255,0.08); transition: background .15s; }
+    #scan:hover:not(:disabled) { background: rgba(255,255,255,0.1); }
+    #scan:disabled { opacity: 0.5; cursor: default; }
     #stop { width: 100%; margin-top: 8px; background: rgba(255,255,255,0.06); color: #F2F3F5; border: 1px solid rgba(255,255,255,0.08); display: none; }
     #stop:hover { background: rgba(255,255,255,0.1); }
+    .sep { height: 1px; background: rgba(255,255,255,0.08); margin: 14px 0; }
     .status { margin-top: 12px; font-size: 12px; color: #9DA1AC; }
     #counts { font-weight: 700; min-height: 16px; color: #F2F3F5; }
     #progress { min-height: 16px; white-space: pre-wrap; word-break: break-word; }
@@ -36,6 +40,11 @@
   <label for="token">Jeton de scan (X-Scan-Token)</label>
   <input id="token" type="password" autocomplete="off" spellcheck="false" placeholder="Colle ton jeton…">
   <div class="note">Jeton récupéré dans le dashboard du panneau (endpoint GET <code>/api/scan/token</code>). Il est stocké uniquement en local (stockage local de l'extension).</div>
+
+  <button id="connect">Connecter mon Instagram</button>
+  <div class="note">Connecte ta session Instagram au panneau (récupère les cookies de ta session <b>instagram.com</b> — la méthode fiable, sans vérification Instagram). Sois connecté à Instagram dans ce navigateur, puis clique.</div>
+
+  <div class="sep"></div>
 
   <button id="scan">Scanner mes abonnés</button>
   <button id="stop">Arrêter</button>
